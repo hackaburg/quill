@@ -1,4 +1,4 @@
-<div class="page">
+<div id="application" class="page">
   <div class="divided title">
     Application
   </div>
@@ -37,9 +37,12 @@
 
         <div class="field" ng-show="!autoFilledSchool">
           <label> School </label>
-          <input class="ui input"
-                 name="school"
-                 ng-model="user.profile.school">
+          <div id="school" class="ui search">
+            <div class="ui input">
+              <input class="prompt" type="text" placeholder="School" name="school" ng-model="user.profile.school">                
+            </div>
+            <div class="results"></div>
+          </div>
         </div>
 
         <div class="field">
@@ -52,6 +55,9 @@
             <option value="2017">2017</option>
             <option value="2018">2018</option>
             <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
           </select>
         </div>
 
