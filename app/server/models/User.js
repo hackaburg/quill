@@ -155,6 +155,7 @@ var schema = new mongoose.Schema({
   email: {
       type: String,
       required: true,
+      unique: true,
       validate: [
         validator.isEmail,
         'Invalid Email',
@@ -309,7 +310,7 @@ schema.statics.verifyTempAuthToken = function(token, callback){
 
 schema.statics.findOneByEmail = function(email){
   return this.findOne({
-    email: new RegExp('^' + email + '$', 'i')
+    email: email.toLowerCase()
   });
 };
 
