@@ -11,6 +11,9 @@ angular.module('reg')
       },
       getOtherSchools: function (){
         return $http.get(base + 'assets/schools.csv');
+      },
+      getUserDescriptions: function (){
+        return $http.get(base + 'assets/descriptions.csv');
       }
     };
   }
