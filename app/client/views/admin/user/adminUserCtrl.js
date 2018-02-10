@@ -24,7 +24,7 @@ angular.module('reg')
       function populateSchools(){
 
         AutocompleteService
-          .getSchools()
+          .getSchoolDomains()
           .then(function(res){
             var schools = res.data;
             var email = $scope.selectedUser.email.split('@')[1];
