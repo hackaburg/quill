@@ -65,18 +65,25 @@
 
     z-index: 9999;
 
-    // Is not visible unless mobile.
-    visibility: 'hidden';
-    opacity: 0;
+    display: none;
 
     @include transform(translate3d($sidebar-width, 0,0));
     @include transition-duration($sidebar-transition-time);
+
+    // Hack to get the X lined up
+    line-height: $sidebar-tab-size * 0.9;
+    text-align: center;
+    padding: 0;
 
     cursor: pointer;
 
     .close {
       color: white;
       font-size: 2em;
+    }
+
+    img {
+      width: 100%;
     }
   }
 
@@ -93,23 +100,13 @@
       +.tab {
         // Transform the tab to the side of the sidebar
         @include transform(translate3d($sidebar-width, 0, 0));
-
-        // Hack to get the X lined up
-        line-height: $sidebar-tab-size;
-        text-align: center;
-        padding: 0;
       }
     }
     // When the tab is closed.
     +.tab {
-      visibility: 'visible';
-      opacity: 1;
+      display: block;
       @include transform(translate3d(0,0,0));
       padding: 4px;
-
-      img {
-        width: 100%;
-      }
     }
     .note {
       display: none;
