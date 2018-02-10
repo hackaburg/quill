@@ -13,6 +13,13 @@ angular.module('reg')
       // Set up the user
       $scope.user = currentUser.data;
 
+      var currentYear = new Date().getFullYear();
+      $scope.graduationYears = [];
+      for (var i = 0; i < 10; i++) {
+        $scope.graduationYears.push(currentYear + i);
+      }
+
+
       // Populate the school dropdown
       populateSchools();
       _setupForm();
