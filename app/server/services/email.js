@@ -18,6 +18,8 @@ var EMAIL_PASS = process.env.EMAIL_PASS;
 var EMAIL_PORT = process.env.EMAIL_PORT;
 var EMAIL_CONTACT = process.env.EMAIL_CONTACT;
 var EMAIL_HEADER_IMAGE = process.env.EMAIL_HEADER_IMAGE;
+var EMAIL_DEV = !!process.env.EMAIL_DEV;
+
 if(EMAIL_HEADER_IMAGE.indexOf("https") == -1){
   EMAIL_HEADER_IMAGE = ROOT_URL + EMAIL_HEADER_IMAGE;
 }
@@ -33,6 +35,12 @@ var options = {
     pass: EMAIL_PASS
   }
 };
+
+if (EMAIL_DEV) {
+  delete options.auth;
+  options.secure = false;
+  options.ignoreTLS = true;
+}
 
 var transporter = nodemailer.createTransport(smtpTransport(options));
 
