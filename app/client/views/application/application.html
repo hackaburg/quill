@@ -70,9 +70,15 @@
 
         <div class="field">
           <label>I would describe myself as a...</label>
-          <input type="text"
-                 placeholder="Designer, Data Scientist, iOS Wizard, Hacker Extraordinaire"
-                 ng-model="user.profile.description">
+          <div id="description" class="ui search">
+            <div class="ui input">
+              <input type="text"
+                    class="prompt"
+                    placeholder="Designer, Data Scientist, iOS Wizard, Hacker Extraordinaire"
+                    ng-model="user.profile.description">
+            </div>
+            <div class="results"></div>
+          </div>
         </div>
 
         <div class="field">

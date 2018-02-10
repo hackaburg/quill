@@ -8,7 +8,8 @@ angular.module('reg')
     'settings',
     'Session',
     'UserService',
-    function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService){
+    'AutocompleteService',
+    function($scope, $rootScope, $state, $http, currentUser, Settings, Session, UserService, AutocompleteService){
 
       // Set up the user
       $scope.user = currentUser.data;
@@ -22,6 +23,7 @@ angular.module('reg')
 
       // Populate the school dropdown
       populateSchools();
+      populateDescriptions();
       _setupForm();
 
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
@@ -30,8 +32,8 @@ angular.module('reg')
        * TODO: JANK WARNING
        */
       function populateSchools(){
-        $http
-          .get('/assets/schools.json')
+        AutocompleteService
+          .getSchoolDomains()
           .then(function(res){
             var schools = res.data;
             var email = $scope.user.email.split('@')[1];
@@ -42,8 +44,8 @@ angular.module('reg')
             }
           });
 
-        $http
-          .get('/assets/schools.csv')
+        AutocompleteService
+          .getOtherSchools()
           .then(function(res){ 
             $scope.schools = res.data.split('\n');
             $scope.schools.push('Other');
@@ -64,6 +66,30 @@ angular.module('reg')
                 }
               })
           });          
+      }
+
+      function populateDescriptions(){
+        AutocompleteService
+          .getUserDescriptions()
+          .then(function(res){ 
+            var descriptions = res.data
+                                  .trim()
+                                  .split('\n')
+                                  .map(function (description) {
+                                    return {
+                                      title: description.trim(),
+                                    };
+                                  });
+
+            $('#description.ui.search')
+              .search({
+                source: descriptions,
+                cache: true,
+                onSelect: function(result, response) {
+                  $scope.user.profile.description = result.title.trim();
+                }
+              });
+          });
       }
 
       function _updateUser(e){

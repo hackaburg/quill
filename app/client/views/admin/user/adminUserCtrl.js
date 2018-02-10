@@ -4,7 +4,8 @@ angular.module('reg')
     '$http',
     'user',
     'UserService',
-    function($scope, $http, User, UserService){
+    'AutocompleteService',
+    function($scope, $http, User, UserService, AutocompleteService){
       $scope.selectedUser = User.data;
 
       var currentYear = new Date().getFullYear();
@@ -22,8 +23,8 @@ angular.module('reg')
        */
       function populateSchools(){
 
-        $http
-          .get('/assets/schools.json')
+        AutocompleteService
+          .getSchools()
           .then(function(res){
             var schools = res.data;
             var email = $scope.selectedUser.email.split('@')[1];
