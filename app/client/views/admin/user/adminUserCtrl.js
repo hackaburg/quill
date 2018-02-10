@@ -7,6 +7,13 @@ angular.module('reg')
     function($scope, $http, User, UserService){
       $scope.selectedUser = User.data;
 
+      var currentYear = new Date().getFullYear();
+      $scope.graduationYears = [];
+      for (var i = 0; i < 10; i++) {
+        $scope.graduationYears.push(currentYear + i);
+      }
+
+
       // Populate the school dropdown
       populateSchools();
 
