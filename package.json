@@ -28,7 +28,8 @@
     "mongo": "mongod --dbpath db",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "watch": "gulp server",
+    "server": "gulp server",
+    "watch": "gulp watch",
     "prod": "gulp build && node app.js",
     "config": "cp .env.config .env",
     "postinstall": "bower install && gulp build"
