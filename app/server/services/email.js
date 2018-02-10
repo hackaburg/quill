@@ -202,4 +202,34 @@ controller.sendPasswordChangedEmail = function(email, callback){
 
 };
 
+/**
+ * Send a "you're admitted" email
+ * @param  {[type]}   email    [description]
+ * @param  {Function} callback [description]
+ */
+controller.sendAdmitEmail = function(email, callback){
+
+  var options = {
+    to: email,
+    subject: "["+HACKATHON_NAME+"] - You're in"
+  };
+
+  var locals = {
+    title: "You're in!",
+    body: "We accepted your application! Please make sure to confirm your place using our registration dashboard."
+  };
+
+  sendOne('email-basic', options, locals, function(err, info){
+    if (err){
+      console.log(err);
+    }
+    if (info){
+      console.log(info.message);
+    }
+    if (callback){
+      callback(err, info);
+    }
+  });
+};
+
 module.exports = controller;
