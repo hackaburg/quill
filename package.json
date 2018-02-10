@@ -1,6 +1,6 @@
 {
-  "name": "hackmit-reg",
-  "description": "mean stack registration system",
+  "name": "hackaburg-quill",
+  "description": "mean stack registration system for hackaburg",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
