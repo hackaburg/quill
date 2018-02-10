@@ -20,10 +20,7 @@ var profile = {
   },
 
   graduationYear: {
-    type: String,
-    enum: {
-      values: '2016 2017 2018 2019 2020 2021 2022'.split(' '),
-    }
+    type: String
   },
 
   description: {
@@ -326,7 +323,7 @@ schema.statics.validateProfile = function(profile, cb){
   return cb(!(
     profile.name.length > 0 &&
     profile.school.length > 0 &&
-    ['2016', '2017', '2018', '2019', '2020', '2021', '2022'].indexOf(profile.graduationYear) > -1 &&
+    profile.graduationYear > new Date().getFullYear() &&
     ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1
     ));
 };
