@@ -16,7 +16,7 @@ angular.module('reg')
 
       var currentYear = new Date().getFullYear();
       $scope.graduationYears = [];
-      for (var i = 0; i < 10; i++) {
+      for (var i = -1; i <= 10; i++) {
         $scope.graduationYears.push(currentYear + i);
       }
 
