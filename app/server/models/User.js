@@ -320,10 +320,13 @@ schema.statics.getByToken = function(token, callback){
 };
 
 schema.statics.validateProfile = function(profile, cb){
+  var currentYear = new Date().getFullYear();
+
   return cb(!(
     profile.name.length > 0 &&
     profile.school.length > 0 &&
-    profile.graduationYear > new Date().getFullYear() &&
+    profile.graduationYear >= (currentYear - 1) &&
+    profile.graduationYear <= (currentYear + 10) &&
     ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1
     ));
 };
