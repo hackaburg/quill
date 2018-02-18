@@ -5,102 +5,202 @@
 
   <div class="ui stackable page grid">
     <div class="column">
-      <div class="ui form"
-            ng-class="{'loading': loading}">
-
+      <div class="ui form" ng-class="{'loading': loading}">
         <div class="divided title">Basic Information</div>
-
         <fieldset ng-disabled="regIsClosed">
-
-        <div class="field">
-          <label> Email </label>
-          <input type="email"
-                 name="email"
-                 disabled="disabled"
-                 ng-model="user.email">
-        </div>
-
-        <div class="field">
-          <label> Full Name </label>
-          <input type="text"
-                 name="name"
-                 ng-model="user.profile.name">
-        </div>
-
-        <div class="field" ng-show="autoFilledSchool">
-          <label> School </label>
-          <input class="ui input"
-                 disabled="disabled"
-                 ng-show="autoFilledSchool"
-                 ng-model="user.profile.school">
-        </div>
-
-        <div class="field" ng-show="!autoFilledSchool">
-          <label> School </label>
-          <div id="school" class="ui search">
-            <div class="ui input">
-              <input class="prompt" type="text" placeholder="School" name="school" ng-model="user.profile.school">                
-            </div>
-            <div class="results"></div>
+          <div class="field" required>
+            <label>Email</label>
+            <input type="email" name="email" disabled="disabled" ng-model="user.email">
           </div>
-        </div>
 
-        <div class="field">
-          <label>Graduation Year</label>
-          <select
-            name="year"
-            ng-model="user.profile.graduationYear">
-            <option value="">Graduation Year</option>
-            <option value="{{year}}" ng-repeat="year in graduationYears">{{year}}</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Gender</label>
-          <select
-            name="gender"
-            ng-model="user.profile.gender">
-            <option value="">Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-            <option value="O">Other</option>
-            <option value="N">I prefer not to answer.</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>I would describe myself as a...</label>
-          <div id="description" class="ui search">
-            <div class="ui input">
-              <input type="text"
-                    class="prompt"
-                    placeholder="Designer, Data Scientist, iOS Wizard, Hacker Extraordinaire"
-                    ng-model="user.profile.description">
-            </div>
-            <div class="results"></div>
+          <div class="field" required>
+            <label>Full name</label>
+            <input type="text" name="name" ng-model="user.profile.name">
           </div>
-        </div>
 
-        <div class="field">
-          <label>
-              What would you like to learn or get out of Hackaburg? (optional)
-          </label>
-          <textarea ng-model="user.profile.essay">
-          </textarea>
-        </div>
+          <div class="field" required>
+            <label>Age at the time of the event</label>
+            <input type="text" name="age" placeholder="how old will you be on 2018-05-25?" ng-model="user.profile.age">
+          </div>
 
-        <br>
+          <div class="field" required>
+            <label>Gender</label>
+            <select name="gender" ng-model="user.profile.gender">
+              <option value="">-- Gender --</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+              <option value="O">Other</option>
+              <option value="N">I prefer not to answer.</option>
+            </select>
+          </div>
 
-        <div class="field" ng-hide="regIsClosed">
-          <button type="submit"
-                  class="fluid ui purple button"
-                  ng-click="submitForm()">
-            Submit
-          </button>
-        </div>
+          <div class="field" required>
+            <label>Nationality</label>
+            <select name="nationality" ng-model="user.profile.nationality">
+              <option value="">-- Nationality --</option>
+              <option value="{{nation}}" ng-repeat="nation in nations">{{nation}}</option>
+            </select>
+          </div>
 
+          <div class="field">
+            <label>City</label>
+            <input type="text" name="city" ng-model="user.profile.city">
+          </div>
         </fieldset>
+
+        <div class="divided title">Profession</div>
+        <fieldset ng-disabled="regIsClosed">
+          <div class="field" required>
+            <label>Profession</label>
+
+            <div class="ui stackable grid">
+              <div class="three wide column">
+                <input type="radio" id="profession-student" name="profession" ng-model="user.profile.profession" value="S">
+                <label for="profession-student">I'm a student</label>
+              </div>
+
+              <div class="six wide column">
+                  <input type="radio" id="profession-work" name="profession" ng-model="user.profile.profession" value="W">
+                  <label for="profession-work">I have a job / I'm between jobs</label>
+                </div>
+            </div>
+          </div>
+
+          <div ng-show="user.profile.profession == 'S'">
+            <div class="field" ng-show="autoFilledSchool" required>
+              <label>School</label>
+              <input class="ui input" disabled="disabled" ng-show="autoFilledSchool" ng-model="user.profile.study.school">
+            </div>
+
+            <div class="field" ng-show="!autoFilledSchool" required>
+              <label>School</label>
+              <div id="school" class="ui search">
+                <div class="ui input">
+                  <input class="prompt" type="text" placeholder="the school or university you're visiting" name="school" ng-model="user.profile.study.school">                
+                </div>
+                <div class="results"></div>
+              </div>
+            </div>
+
+            <div class="field" required>
+              <label>Subject of studies</label>
+              <div id="subject-of-study" class="ui search">
+                <div class="ui input">
+                  <input class="prompt" type="text" placeholder="e.g. Computer Science, UX Engineering, Awesomeness" name="subject-of-study" ng-model="user.profile.study.subject">                
+                </div>
+                <div class="results"></div>
+              </div>
+            </div>
+
+            <div class="field" required>
+              <label>Year of studies</label>
+              <select name="year-of-studies" ng-model="user.profile.study.yearOfStudies">
+                <option value="">-- Year of studies --</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+            </div>
+
+            <div class="field" required>
+              <label>Expected graduation year</label>
+              <select name="graduation-year" ng-model="user.profile.study.graduationYear">
+                <option value="">-- Graduation year --</option>
+                <option value="{{year}}" ng-repeat="year in graduationYears">{{year}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div ng-show="user.profile.profession == 'W'">
+            <div class="field" required>
+              <label>Years of work experience</label>
+              <input name="work-experience" type="number" min="0" max="100" ng-model="user.profile.work.experience">
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="divided title">About you</div>
+        <fieldset ng-disabled="regIsClosed">
+          <div class="field" required>
+            <label>Do you need travel reimbursement?</label>
+            <p>We'll give a limited amount of applicants a travel reimbursement up to 100&euro; (depending on your location).</p>
+            <div class="ui stackable grid">
+              <div class="two wide column">
+                <input id="travel-reimbursement-y" name="travel-reimbursement" type="radio" value="Y" ng-model="user.profile.travelReimbursement">
+                <label for="travel-reimbursement-y">Yes</label>
+              </div>
+              <div class="two wide column">
+                <input id="travel-reimbursement-n" name="travel-reimbursement" type="radio" value="N" ng-model="user.profile.travelReimbursement">
+                <label for="travel-reimbursement-n">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>LinkedIn profile</label>
+            <input type="text" placeholder="(optional)" ng-model="user.profile.linkedin">
+          </div>
+
+          <div class="field">
+            <label>GitHub profile or similar</label>
+            <input type="text" placeholder="feel free to choose your preferred platform, e.g. GitHub, Bitbucket, GitLab, ..." ng-model="user.profile.github">
+          </div>
+          
+          <div class="field" required>
+            <label>I would describe myself as...</label>
+            <div id="description" class="ui search">
+              <div class="ui input">
+                <input type="text" name="description" class="prompt" placeholder="Designer, Data Scientist, iOS Wizard, Hacker Extraordinaire" ng-model="user.profile.description">
+              </div>
+              <div class="results"></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Do you have an idea, yet?</label>
+            <select name="idea" ng-model="user.profile.idea">
+              <option value="">-- Idea? --</option>
+              <option value="N">Not yet</option>
+              <option value="S">Somewhat, yes</option>
+              <option value="Y">Yes</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <div class="divided title">Legal</div>
+        <fieldset ng-disabled="regIsClosed">
+          <div class="field" required>
+            <label>Major League Hacking Terms and Conditions</label>
+            <div>
+              <input type="checkbox" name="mlh-terms" value="Y" ng-model="user.profile.legal.mlh.terms">
+              <label>I accept the <a href="#" target="_blank">terms and conditions</a> of Major League Hacking</label>
+            </div>
+          </div>
+
+          <div class="field" required>
+            <label>Major League Hacking Code of Conduct</label>
+            <div>
+              <input type="checkbox" name="mlh-coc" value="Y" ng-model="user.profile.legal.mlh.coc">
+              <label>I accept the Major League Hacking <a href="#" target="_blank">Code of Conduct</a></label>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="field" ng-hide="regIsClosed">
+            <button type="submit" class="fluid ui purple button" ng-click="submitForm()">Save Application</button>
+          </div>
+        </fieldset>
+        <br>
+        <br>
       </div>
+      <small class="field" required>
+        <label></label> required fields
+      </small>
     </div>
   </div>
 </div>
