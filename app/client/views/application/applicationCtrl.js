@@ -269,6 +269,16 @@ angular.module('reg')
               ]
             },
 
+            idea: {
+              identifier: 'idea',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select whether you have an idea yet.'
+                }
+              ]
+            },
+
             mlhTerms: {
               identifier: 'mlh-terms',
               rules: [
