@@ -54,15 +54,19 @@
             <label>Profession</label>
 
             <div class="ui stackable grid">
-              <div class="three wide column">
-                <input type="radio" id="profession-student" name="profession" ng-model="user.profile.profession" value="S">
-                <label for="profession-student">I'm a student</label>
+              <div class="four wide column">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="profession-student" name="profession" ng-model="user.profile.profession" value="S">
+                  <label for="profession-student">I'm a student</label>
+                </div>
               </div>
 
               <div class="six wide column">
+                <div class="ui radio checkbox">
                   <input type="radio" id="profession-work" name="profession" ng-model="user.profile.profession" value="W">
                   <label for="profession-work">I have a job / I'm between jobs</label>
                 </div>
+              </div>
             </div>
           </div>
 
@@ -130,12 +134,16 @@
             <p>We'll give a limited amount of applicants a travel reimbursement up to 100&euro; (depending on your location).</p>
             <div class="ui stackable grid">
               <div class="two wide column">
-                <input id="travel-reimbursement-y" name="travel-reimbursement" type="radio" value="Y" ng-model="user.profile.travelReimbursement">
-                <label for="travel-reimbursement-y">Yes</label>
+                <div class="ui radio checkbox">
+                  <input id="travel-reimbursement-y" name="travel-reimbursement" type="radio" value="Y" ng-model="user.profile.travelReimbursement">
+                  <label for="travel-reimbursement-y">Yes</label>
+                </div>
               </div>
               <div class="two wide column">
-                <input id="travel-reimbursement-n" name="travel-reimbursement" type="radio" value="N" ng-model="user.profile.travelReimbursement">
-                <label for="travel-reimbursement-n">No</label>
+                <div class="ui radio checkbox">
+                  <input id="travel-reimbursement-n" name="travel-reimbursement" type="radio" value="N" ng-model="user.profile.travelReimbursement">
+                  <label for="travel-reimbursement-n">No</label>
+                </div>
               </div>
             </div>
           </div>
@@ -175,7 +183,7 @@
         <fieldset ng-disabled="regIsClosed">
           <div class="field" required>
             <label>Major League Hacking Terms and Conditions</label>
-            <div>
+            <div class="ui checkbox">
               <input type="checkbox" name="mlh-terms" value="Y" ng-model="user.profile.legal.mlh.terms">
               <label>I accept the <a href="#" target="_blank">terms and conditions</a> of Major League Hacking</label>
             </div>
@@ -183,7 +191,7 @@
 
           <div class="field" required>
             <label>Major League Hacking Code of Conduct</label>
-            <div>
+            <div class="ui checkbox">
               <input type="checkbox" name="mlh-coc" value="Y" ng-model="user.profile.legal.mlh.coc">
               <label>I accept the Major League Hacking <a href="#" target="_blank">Code of Conduct</a></label>
             </div>
