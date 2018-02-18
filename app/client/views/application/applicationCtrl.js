@@ -24,6 +24,7 @@ angular.module('reg')
       // Populate the school dropdown
       populateSchools();
       populateDescriptions();
+      populateSubjects();
       populateNations();
       _setupForm();
 
@@ -88,6 +89,29 @@ angular.module('reg')
                 cache: true,
                 onSelect: function(result, response) {
                   $scope.user.profile.description = result.title.trim();
+                }
+              });
+          });
+      }
+
+      function populateSubjects() {
+        AutocompleteService
+          .getStudySubjects()
+          .then(function(res){
+            var subjects = res.data
+                              .map(function (subject) {
+                                return {
+                                  title: subject,
+                                };
+                              });
+
+            $('#subject-of-study.ui.search')
+              .search({
+                source: subjects,
+                cache: true,
+                onSelect: function(result, response) {
+                  $scope.user.study = $scope.user.study || {};
+                  $scope.user.study.subject = result.title.trim();
                 }
               });
           });
