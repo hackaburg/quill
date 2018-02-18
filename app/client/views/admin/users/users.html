@@ -72,6 +72,10 @@
 
               <a ng-show="field.type === 'url'" target="_blank" href="{{field.value}}">{{field.value}}</a>
 
+              <span ng-show="field.type === 'enum'">
+                {{field.enum[field.value]}}
+              </span>
+
               <span ng-if="field.type == null">
                 {{field.value}}
               </span>
