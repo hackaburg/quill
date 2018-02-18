@@ -24,6 +24,7 @@ angular.module('reg')
       // Populate the school dropdown
       populateSchools();
       populateDescriptions();
+      populateNations();
       _setupForm();
 
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
@@ -89,6 +90,14 @@ angular.module('reg')
                   $scope.user.profile.description = result.title.trim();
                 }
               });
+          });
+      }
+
+      function populateNations() {
+        AutocompleteService
+          .getNations()
+          .then(function(res){
+            $scope.nations = res.data;
           });
       }
 
