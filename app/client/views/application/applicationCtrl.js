@@ -189,7 +189,7 @@ angular.module('reg')
               identifier: 'age',
               rules: [
                 {
-                  type: 'empty',
+                  type: 'integer[1..150]',
                   prompt: 'Please enter your age.'
                 }
               ]
