@@ -119,7 +119,7 @@ angular.module('reg')
 
       function populateNations() {
         AutocompleteService
-          .getNations()
+          .getNationalities()
           .then(function(res){
             $scope.nations = res.data;
           });

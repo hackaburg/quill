@@ -15,8 +15,8 @@ angular.module('reg')
       getUserDescriptions: function (){
         return $http.get(base + 'assets/descriptions.csv');
       },
-      getNations: function (){
-        return $http.get(base + 'assets/nations.json');
+      getNationalities: function (){
+        return $http.get(base + 'assets/nationalities.json');
       },
       getStudySubjects: function (){
         return $http.get(base + 'assets/subjects.json');
