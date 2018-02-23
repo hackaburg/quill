@@ -4,47 +4,6 @@ var mongoose   = require('mongoose'),
     jwt        = require('jsonwebtoken');
     JWT_SECRET = process.env.JWT_SECRET;
 
-var profile = {
-
-  // Basic info
-  name: {
-    type: String,
-    min: 1,
-    max: 100,
-  },
-
-  school: {
-    type: String,
-    min: 1,
-    max: 150,
-  },
-
-  graduationYear: {
-    type: String
-  },
-
-  description: {
-    type: String,
-    min: 0,
-    max: 300
-  },
-
-  essay: {
-    type: String,
-    min: 0,
-    max: 1500
-  },
-
-  // Optional info for demographics
-  gender: {
-    type: String,
-    enum : {
-      values: 'M F O N'.split(' ')
-    }
-  },
-
-};
-
 // Only after confirmed
 var confirmation = {
   phoneNumber: String,
@@ -58,13 +17,6 @@ var confirmation = {
   wantsHardware: Boolean,
   hardware: String,
 
-  major: String,
-  github: String,
-  twitter: String,
-  website: String,
-  resume: String,
-
-  needsReimbursement: Boolean,
   address: {
     name: String,
     line1: String,
@@ -76,18 +28,7 @@ var confirmation = {
   },
   receipt: String,
 
-  hostNeededFri: Boolean,
-  hostNeededSat: Boolean,
-  genderNeutral: Boolean,
-  catFriendly: Boolean,
-  smokingFriendly: Boolean,
-  hostNotes: String,
-
   notes: String,
-
-  signatureLiability: String,
-  signaturePhotoRelease: String,
-  signatureCodeOfConduct: String,
 };
 
 var status = {
@@ -202,7 +143,121 @@ var schema = new mongoose.Schema({
    *
    * Profile validation will exist here.
    */
-  profile: profile,
+  profile: {
+    name: {
+      type: String,
+      min: 1,
+      max: 100,
+    },
+
+    age: {
+      type: Number,
+    },
+  
+    gender: {
+      type: String,
+      enum : {
+        values: 'M F O N'.split(' ')
+      },
+    },
+
+    nationality: {
+      type: String,
+      min: 1,
+      max: 100,
+    },
+
+    city: {
+      type: String,
+      min: 1,
+      max: 200,
+    },
+
+    profession: {
+      type: String,
+      enum: {
+        values: [
+          "W",
+          "S",
+        ]
+      },
+    },
+
+    study: {
+      school: {
+        type: String,
+        min: 1,
+        max: 150,
+      },
+
+      subject: {
+        type: String,
+      },
+
+      yearOfStudies: {
+        type: String,
+      },
+
+      graduationYear: {
+        type: String
+      },
+    },
+
+    work: {
+      experience: {
+        type: Number,
+      },
+    },
+
+    travelReimbursement: {
+      type: String,
+      enum: {
+        values: [
+          "Y",
+          "N"
+        ]
+      },
+    },
+
+    github: {
+      type: String,
+    },
+
+    linkedin: {
+      type: String,
+    },
+
+    description: {
+      type: String,
+      min: 0,
+      max: 300
+    },
+
+    idea: {
+      type: String,
+      enum: {
+        values: [
+          "Y",
+          "N",
+          "S",
+        ],
+      },
+    },
+  
+    legal: {
+      mlh: {
+        terms: {
+          type: Boolean,
+          default: false,
+        },
+
+        coc: {
+          type: Boolean,
+          default: false,
+        },
+      }
+    }
+  },
 
   /**
    * Confirmation information
@@ -324,11 +379,28 @@ schema.statics.validateProfile = function(profile, cb){
 
   return cb(!(
     profile.name.length > 0 &&
-    profile.school.length > 0 &&
-    profile.graduationYear >= (currentYear - 1) &&
-    profile.graduationYear <= (currentYear + 10) &&
-    ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1
-    ));
+    profile.age > 0 &&
+    ['M', 'F', 'O', 'N'].indexOf(profile.gender) > -1 &&
+    profile.nationality.length > 0 &&
+    (
+      (
+        profile.profession == "S" &&
+        profile.study.school.length > 0 &&
+        profile.study.graduationYear >= (currentYear - 1) &&
+        profile.study.graduationYear <= (currentYear + 10) &&
+        profile.study.subject.length > 0
+      ) ||
+      (
+        profile.profession == "W" &&
+        profile.work.experience >= 0
+      )
+    ) &&
+    ["Y", "N"].includes(profile.travelReimbursement) &&
+    profile.description.length > 0 &&
+    ["Y", "N", "S"].includes(profile.idea) &&
+    profile.legal.mlh.terms &&
+    profile.legal.mlh.coc
+  ));
 };
 
 //=========================================
