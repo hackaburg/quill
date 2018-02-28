@@ -22,6 +22,25 @@ angular.module('reg')
       }
 
 
+      // <tracks>
+      var tracks = [
+        "Digital Journalism",
+        "Security",
+        "Smart Society",
+        "E-Health",
+        "Free Choice",
+      ];
+      
+      $scope.tracks = {};
+      
+      for (var i = 0; i < tracks.length; i++) {
+        var track = tracks[i];
+        
+        $scope.tracks[track] = $scope.user.profile.ideaTracks.indexOf(track) != -1;
+      }
+      // </tracks>
+      
+      
       // Populate the school dropdown
       populateSchools();
       populateDescriptions();
@@ -103,6 +122,18 @@ angular.module('reg')
       }
 
       function _updateUser(e){
+        // <tracks>
+        $scope.user.profile.ideaTracks = [
+          "Digital Journalism",
+          "Security",
+          "Smart Society",
+          "E-Health",
+          "Free Choice",
+        ].filter(function (track) {
+          return $scope.tracks[track];
+        });
+        // </tracks>
+
         UserService
           .updateProfile(Session.getUserId(), $scope.user.profile)
           .success(function(data){
@@ -124,8 +155,6 @@ angular.module('reg')
         $.fn.form.settings.rules.professionSelected = function(value) {
           var profession = $("input[name='profession']:checked").val();
 
-          console.log(profession);
-
           return profession == "W" || profession == "S";
         };
 
@@ -143,8 +172,6 @@ angular.module('reg')
 
         $.fn.form.settings.rules.travelReimbursementSelected = function(value) {
           var travelReimbursement = $("input[name='travel-reimbursement']:checked").val();
-
-          console.log(travelReimbursement);
 
           return travelReimbursement == "Y" || travelReimbursement == "N";
         };

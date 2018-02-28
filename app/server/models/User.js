@@ -243,6 +243,8 @@ var schema = new mongoose.Schema({
         ],
       },
     },
+
+    ideaTracks: [String],
   
     legal: {
       mlh: {

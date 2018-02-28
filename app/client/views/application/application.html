@@ -182,6 +182,18 @@
               <option value="Y">Yes</option>
             </select>
           </div>
+
+          <div class="field" required>
+            <label>I'm interested in ...</label>
+            <div class="inline fields">
+              <div class="field" ng-repeat="(key, value) in tracks">
+                <div class="ui checkbox">
+                  <input type="checkbox" id="tracks-{{$index}}" ng-model="tracks[key]" />
+                  <label for="tracks-{{$index}}">{{key}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
         </fieldset>
 
         <div class="divided title">Legal</div>
