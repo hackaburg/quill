@@ -18,9 +18,6 @@ angular.module('reg')
       getNationalities: function (){
         return $http.get(base + 'assets/nationalities.json');
       },
-      getStudySubjects: function (){
-        return $http.get(base + 'assets/subjects.json');
-      }
     };
   }
   ]);
