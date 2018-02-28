@@ -99,10 +99,12 @@
           <tr>
             <th>Name</th>
             <th>E-mail address</th>
+            <th>Age</th>
+            <th>Gender</th>
             <th>School</th>
             <th>Grad</th>
+            <th>Subject</th>
             <th>V/S/A/C</th>
-            <th>Host</th>
             <th>$</th>
             <th></th>
             <th></th>
@@ -121,11 +123,16 @@
               </strong>
             </td>
             <td>{{user.email}}</td>
-            <td>{{user.profile.school}}</td>
-            <td
-              class="collapsing">
-              {{user.profile.graduationYear}}
+            <td>{{user.profile.age}}</td>
+            <td>
+              <i class="female icon" ng-show="user.profile.gender == 'F'"></i>
+              <i class="male icon" ng-show="user.profile.gender == 'M'"></i>
+              <i class="other gender icon" ng-show="user.profile.gender == 'O'"></i>
+              <span ng-show="user.profile.gender == 'N'">&mdash;</span>
             </td>
+            <td>{{user.profile.study.school}}</td>
+            <td class="collapsing">{{user.profile.study.graduationYear}}</td>
+            <td class="collapsing">{{user.profile.study.subject}}</td>
             <td
               class="collapsing">
 
@@ -186,27 +193,6 @@
                 class="red remove circle icon"
                 title="declined">
               </i>
-
-            </td>
-
-            <!-- Host -->
-            <td
-              class="collapsing">
-
-              <span ng-if="user.status.confirmed">
-                <i
-                  ng-if="user.confirmation.hostNeededFri"
-                  class="home icon">
-                </i>
-                <i
-                  ng-if="!user.confirmation.hostNeededFri && user.confirmation.hostNeededSat"
-                  class="no icon">
-                </i>
-                <i
-                  ng-if="user.confirmation.hostNeededSat"
-                  class="home icon">
-                </i>
-              </span>
 
             </td>
 

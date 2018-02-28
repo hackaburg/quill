@@ -256,6 +256,9 @@ angular.module('reg')
                   "N": "No, not yet",
                 }
               },{
+                name: 'Interested in',
+                value: (user.profile.ideaTracks || []).join(", "),
+              },{
                 name: 'Profession',
                 value: user.profile.profession,
                 type: "enum",
