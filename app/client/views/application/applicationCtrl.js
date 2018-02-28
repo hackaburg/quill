@@ -43,7 +43,6 @@ angular.module('reg')
       
       // Populate the school dropdown
       populateSchools();
-      populateDescriptions();
       populateNations();
       _setupForm();
 
@@ -87,30 +86,6 @@ angular.module('reg')
                 }
               })
           });          
-      }
-
-      function populateDescriptions(){
-        AutocompleteService
-          .getUserDescriptions()
-          .then(function(res){ 
-            var descriptions = res.data
-                                  .trim()
-                                  .split('\n')
-                                  .map(function (description) {
-                                    return {
-                                      title: description.trim(),
-                                    };
-                                  });
-
-            $('#description.ui.search')
-              .search({
-                source: descriptions,
-                cache: true,
-                onSelect: function(result, response) {
-                  $scope.user.profile.description = result.title.trim();
-                }
-              });
-          });
       }
 
       function populateNations() {

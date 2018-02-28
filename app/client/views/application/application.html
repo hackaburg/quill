@@ -165,12 +165,10 @@
           
           <div class="field" required>
             <label>I would describe myself as...</label>
-            <div id="description" class="ui search">
-              <div class="ui input">
-                <input type="text" name="description" class="prompt" placeholder="Designer, Data Scientist, iOS Wizard, Hacker Extraordinaire" ng-model="user.profile.description">
-              </div>
-              <div class="results"></div>
-            </div>
+            <select name="description" ng-model="user.profile.description">
+              <option value="">-- Description? --</option>
+              <option value="Designer">Designer</option>
+            </select>
           </div>
 
           <div class="field" required>
