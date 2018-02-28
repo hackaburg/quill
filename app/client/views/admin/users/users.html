@@ -29,10 +29,8 @@
       </button>
 
     </div>
+
     <div id="table-container" class="thirteen wide column">
-      <div class="ui header">
-        Users
-      </div>
       <div class="ui long user modal">
         <i class="close icon"></i>
         <div class="header">
@@ -93,6 +91,9 @@
         </div>
       </div>
 
+      <div class="ui header">
+        Students
+      </div>
       <table
         class="ui celled selectable compact users table">
         <thead>
@@ -113,7 +114,7 @@
         <tbody>
           <tr
             ng-click="selectUser(user)"
-            ng-repeat="user in users"
+            ng-repeat="user in studentUsers"
             ng-class="rowClass(user)">
             <td>
               <strong>
@@ -250,6 +251,315 @@
         </tbody>
       </table>
 
+      <div class="ui header">
+        Workers
+      </div>
+      <table
+        class="ui celled selectable compact users table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>E-mail address</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Experience</th>
+            <th>V/S/A/C</th>
+            <th>$</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            ng-click="selectUser(user)"
+            ng-repeat="user in workerUsers"
+            ng-class="rowClass(user)">
+            <td>
+              <strong>
+                {{user.profile.name}}
+                &nbsp;
+
+              </strong>
+            </td>
+            <td>{{user.email}}</td>
+            <td>{{user.profile.age}}</td>
+            <td>
+              <i class="female icon" ng-show="user.profile.gender == 'F'"></i>
+              <i class="male icon" ng-show="user.profile.gender == 'M'"></i>
+              <i class="other gender icon" ng-show="user.profile.gender == 'O'"></i>
+              <span ng-show="user.profile.gender == 'N'">&mdash;</span>
+            </td>
+            <td>{{user.profile.work.experience}}</td>
+            <td
+              class="collapsing">
+
+              <!-- Verified -->
+              <i
+                ng-if="user.verified"
+                class="green check circle icon"
+                title="verified">
+              </i>
+              <i
+                ng-if="!user.verified"
+                class="red remove circle icon"
+                title="verified">
+              </i>
+
+              <!-- Submitted -->
+              <i
+                ng-if="user.status.completedProfile"
+                class="green check circle icon"
+                title="submitted">
+              </i>
+              <i
+                ng-if="!user.status.completedProfile"
+                class="red remove circle icon"
+                title="submitted">
+              </i>
+
+              <!-- Admitted -->
+              <i
+                ng-if="user.status.admitted"
+                class="green check circle icon"
+                title="accepted">
+              </i>
+              <i
+                ng-if="!user.status.admitted"
+                class="thin circle icon"
+                title="accepted">
+              </i>
+
+              <!-- Confirmed -->
+              <i
+                ng-if="!user.status.admitted"
+                class="circle thin icon"
+                title="confirmed">
+              </i>
+              <i
+                ng-if="user.status.admitted && user.status.confirmed"
+                class="green check circle icon"
+                title="confirmed">
+              </i>
+              <i
+                ng-if="user.status.admitted && !user.status.confirmed && !user.status.declined"
+                class="question icon"
+                title="confirmed">
+              </i>
+              <i
+                ng-if="user.status.admitted && user.status.declined"
+                class="red remove circle icon"
+                title="declined">
+              </i>
+
+            </td>
+
+            <td
+              class="collapsing">
+              <span ng-if="user.status.confirmed">
+                <i
+                  ng-if="user.confirmation.needsReimbursement && !user.status.reimbursementGiven"
+                  class="red money icon">
+                </i>
+                <i
+                  ng-if="user.confirmation.needsReimbursement && user.status.reimbursementGiven"
+                  class="green money icon">
+                </i>
+              </span>
+            </td>
+
+            <td
+              class="collapsing">
+              <button
+                ng-click="goUser($event, user)"
+                class="ui circular mini basic icon button"
+                title="Show Data">
+                <i class="linkify icon"></i>
+              </button>
+            </td>
+
+            <td
+              class="right aligned collapsing">
+
+              <button
+                class="accept ui circular mini basic green icon button"
+                ng-click="acceptUser($event, user, $index)"
+                title="Accept Person">
+                <i class="add user icon"></i>
+              </button>
+
+              <button
+                ng-click="toggleCheckIn($event, user, $index)"
+                class="ui circular mini basic green icon button"
+                title="Checkin">
+
+                <i
+                  ng-if="!user.status.checkedIn"
+                  class="flag outline icon"></i>
+
+                <i
+                  ng-if="user.status.checkedIn"
+                  class="green flag icon"></i>
+
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="ui header">
+        Other
+      </div>
+      <table
+        class="ui celled selectable compact users table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>E-mail address</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>V/S/A/C</th>
+            <th>$</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            ng-click="selectUser(user)"
+            ng-repeat="user in otherUsers"
+            ng-class="rowClass(user)">
+            <td>
+              <strong>
+                {{user.profile.name}}
+                &nbsp;
+
+              </strong>
+            </td>
+            <td>{{user.email}}</td>
+            <td>{{user.profile.age}}</td>
+            <td>
+              <i class="female icon" ng-show="user.profile.gender == 'F'"></i>
+              <i class="male icon" ng-show="user.profile.gender == 'M'"></i>
+              <i class="other gender icon" ng-show="user.profile.gender == 'O'"></i>
+              <span ng-show="user.profile.gender == 'N'">&mdash;</span>
+            </td>
+            <td
+              class="collapsing">
+
+              <!-- Verified -->
+              <i
+                ng-if="user.verified"
+                class="green check circle icon"
+                title="verified">
+              </i>
+              <i
+                ng-if="!user.verified"
+                class="red remove circle icon"
+                title="verified">
+              </i>
+
+              <!-- Submitted -->
+              <i
+                ng-if="user.status.completedProfile"
+                class="green check circle icon"
+                title="submitted">
+              </i>
+              <i
+                ng-if="!user.status.completedProfile"
+                class="red remove circle icon"
+                title="submitted">
+              </i>
+
+              <!-- Admitted -->
+              <i
+                ng-if="user.status.admitted"
+                class="green check circle icon"
+                title="accepted">
+              </i>
+              <i
+                ng-if="!user.status.admitted"
+                class="thin circle icon"
+                title="accepted">
+              </i>
+
+              <!-- Confirmed -->
+              <i
+                ng-if="!user.status.admitted"
+                class="circle thin icon"
+                title="confirmed">
+              </i>
+              <i
+                ng-if="user.status.admitted && user.status.confirmed"
+                class="green check circle icon"
+                title="confirmed">
+              </i>
+              <i
+                ng-if="user.status.admitted && !user.status.confirmed && !user.status.declined"
+                class="question icon"
+                title="confirmed">
+              </i>
+              <i
+                ng-if="user.status.admitted && user.status.declined"
+                class="red remove circle icon"
+                title="declined">
+              </i>
+
+            </td>
+
+            <td
+              class="collapsing">
+              <span ng-if="user.status.confirmed">
+                <i
+                  ng-if="user.confirmation.needsReimbursement && !user.status.reimbursementGiven"
+                  class="red money icon">
+                </i>
+                <i
+                  ng-if="user.confirmation.needsReimbursement && user.status.reimbursementGiven"
+                  class="green money icon">
+                </i>
+              </span>
+            </td>
+
+            <td
+              class="collapsing">
+              <button
+                ng-click="goUser($event, user)"
+                class="ui circular mini basic icon button"
+                title="Show Data">
+                <i class="linkify icon"></i>
+              </button>
+            </td>
+
+            <td
+              class="right aligned collapsing">
+
+              <button
+                class="accept ui circular mini basic green icon button"
+                ng-click="acceptUser($event, user, $index)"
+                title="Accept Person">
+                <i class="add user icon"></i>
+              </button>
+
+              <button
+                ng-click="toggleCheckIn($event, user, $index)"
+                class="ui circular mini basic green icon button"
+                title="Checkin">
+
+                <i
+                  ng-if="!user.status.checkedIn"
+                  class="flag outline icon"></i>
+
+                <i
+                  ng-if="user.status.checkedIn"
+                  class="green flag icon"></i>
+
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 

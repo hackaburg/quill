@@ -22,6 +22,8 @@ angular.module('reg')
 
       function updatePage(data){
         $scope.users = data.users;
+        updateTables();
+
         $scope.currentPage = data.page;
         $scope.pageSize = data.size;
 
@@ -30,6 +32,33 @@ angular.module('reg')
           p.push(i);
         }
         $scope.pages = p;
+      }
+
+      function updateTables() {
+        $scope.studentUsers = $scope.users.filter(function (user) {
+          return user.profile.profession == "S";
+        });
+
+        $scope.workerUsers = $scope.users.filter(function (user) {
+          return user.profile.profession == "W";
+        });
+
+        $scope.otherUsers = $scope.users.filter(function (user) {
+          return user.profile.profession != "S" && user.profile.profession != "W";
+        });
+      }
+
+      function updateUser(user) {
+        for (var i = 0; i < $scope.users.length; i++) {
+          var scopeUser = $scope.users[i];
+
+          if (scopeUser._id == user._id) {
+            $scope.users[i] = user;
+            break;
+          }
+        }
+
+        updateTables();
       }
 
       UserService
@@ -78,7 +107,7 @@ angular.module('reg')
               UserService
                 .checkIn(user._id)
                 .success(function(user){
-                  $scope.users[index] = user;
+                  updateUser(user);
                   swal("Accepted", user.profile.name + ' has been checked in.', "success");
                 });
             }
@@ -87,7 +116,7 @@ angular.module('reg')
           UserService
             .checkOut(user._id)
             .success(function(user){
-              $scope.users[index] = user;
+              updateUser(user);
               swal("Accepted", user.profile.name + ' has been checked out.', "success");
             });
         }
@@ -120,7 +149,7 @@ angular.module('reg')
                 UserService
                   .admitUser(user._id)
                   .success(function(user){
-                    $scope.users[index] = user;
+                    updateUser(user);
                     swal("Accepted", user.profile.name + ' has been admitted.', "success");
                   });
 
