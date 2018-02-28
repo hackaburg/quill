@@ -146,6 +146,16 @@
                 </div>
               </div>
             </div>
+
+            <div ng-show="user.profile.travelReimbursement == 'Y'">
+              <br>
+              <p>As a reminder, our reimbursement policy is as follows:</p>
+              <ul>
+                <li> Up to $100 from within Germany </li>
+              </ul>
+              <p>To simplify the processing, please make sure to also include your reimbursement id <b>{{travelFormId}}</b> in the form.</p>
+              <br>
+            </div>
           </div>
 
           <div class="field">

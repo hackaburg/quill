@@ -13,6 +13,7 @@ angular.module('reg')
 
       // Set up the user
       $scope.user = currentUser.data;
+      $scope.travelFormId = $scope.user._id.substr(0, 5);
 
       var currentYear = new Date().getFullYear();
       $scope.graduationYears = [];
