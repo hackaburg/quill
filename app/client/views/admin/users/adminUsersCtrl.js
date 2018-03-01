@@ -159,6 +159,74 @@ angular.module('reg')
 
       };
 
+      $scope.exportCsv = function($event) {
+        var users = $scope.users.map(flattenObject);
+        var columns = users.map(Object.keys)
+                           .reduce(mergeArrays, [])
+                           .filter(function (column) {
+                             return column.indexOf("$") == -1;
+                           });
+
+        var userRows = users.map(function (user) {
+          return columns.map(function (column) {
+            var value = (user[column] || "").toString().replace(/"/g, "");
+
+            return "\"" + value + "\"";
+          });
+        });
+
+        var table = [columns].concat(userRows);
+        var csv = table.map(function (row) {
+                          return row.join(",");
+                        })
+                        .join("\n");
+        
+        var url = "data:text/csv;charset=utf-8," + escape(csv);
+        var link = document.querySelector("#download-link");
+
+        link.href = url;
+        link.download = "users.csv";
+      };
+
+      function mergeArrays(a, b) {
+        var aClone = [].concat(a);
+
+        for (var i = 0; i < b.length; i++) {
+          var item = b[i];
+
+          if (!aClone.includes(item)) {
+            aClone.push(item);
+          }
+        }
+
+        return aClone;
+      }
+
+      function flattenObject(obj) {
+        var clone = Object.assign({}, obj);
+        var properties = Object.keys(clone);
+
+        for (var i = 0; i < properties.length; i++) {
+          var propertyName = properties[i];
+          var propertyValue = clone[propertyName];
+
+          if (Array.isArray(propertyValue)) {
+            clone[propertyName] = propertyValue.join(", ");
+          } else if (typeof propertyValue == "object") {
+            delete clone[propertyName];
+
+            var flattenedChild = flattenObject(propertyValue);
+            
+            Object.keys(flattenedChild)
+                  .forEach(function (name) {
+                    clone[propertyName + "_" + name] = flattenedChild[name];
+                  });
+          }
+        }
+
+        return clone;
+      }
+
       function formatTime(time){
         if (time) {
           return moment(time).format('MMMM Do YYYY, h:mm:ss a');
