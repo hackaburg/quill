@@ -100,16 +100,13 @@ controller.sendVerificationEmail = function(email, token, callback) {
   };
 
   var locals = {
-    verifyUrl: ROOT_URL + '/verify/' + token
+    title: "Hooray, you're signed up!",
+    message: "To make sure it's really you, we need you to verify your email address:",
+    actionText: "VERIFY ME",
+    actionUrl: ROOT_URL + '/verify/' + token
   };
 
-  /**
-   * Eamil-verify takes a few template values:
-   * {
-   *   verifyUrl: the url that the user must visit to verify their account
-   * }
-   */
-  sendOne('email-verify', options, locals, function(err, info){
+  sendOne('email-link-action', options, locals, function(err, info){
     if (err){
       console.log(err);
     }
@@ -138,19 +135,12 @@ controller.sendPasswordResetEmail = function(email, token, callback) {
 
   var locals = {
     title: 'Password Reset Request',
-    subtitle: '',
-    description: 'Somebody (hopefully you!) has requested that your password be reset. If ' +
+    message: 'Somebody (hopefully you!) has requested that your password be reset. If ' +
       'this was not you, feel free to disregard this email. This link will expire in one hour.',
     actionUrl: ROOT_URL + '/reset/' + token,
-    actionName: "Reset Password"
+    actionText: "RESET PASSWORD"
   };
 
-  /**
-   * Eamil-verify takes a few template values:
-   * {
-   *   verifyUrl: the url that the user must visit to verify their account
-   * }
-   */
   sendOne('email-link-action', options, locals, function(err, info){
     if (err){
       console.log(err);
@@ -179,15 +169,9 @@ controller.sendPasswordChangedEmail = function(email, callback){
 
   var locals = {
     title: 'Password Updated',
-    body: 'Somebody (hopefully you!) has successfully changed your password.',
+    message: 'Somebody (hopefully you!) has successfully changed your password.',
   };
 
-  /**
-   * Eamil-verify takes a few template values:
-   * {
-   *   verifyUrl: the url that the user must visit to verify their account
-   * }
-   */
   sendOne('email-basic', options, locals, function(err, info){
     if (err){
       console.log(err);
@@ -216,10 +200,12 @@ controller.sendAdmitEmail = function(email, callback){
 
   var locals = {
     title: "You're in!",
-    body: "We accepted your application! Please make sure to confirm your place using our registration dashboard."
+    message: "We accepted your application! Please make sure to confirm your place using our registration dashboard.",
+    actionUrl: ROOT_URL,
+    actionText: "OPEN DASHBOARD"
   };
 
-  sendOne('email-basic', options, locals, function(err, info){
+  sendOne('email-link-action', options, locals, function(err, info){
     if (err){
       console.log(err);
     }
@@ -246,7 +232,7 @@ controller.sendDeclineEmail = function(email, callback){
 
   var locals = {
     title: "Bummer!",
-    body: "We're sorry you can't make it. Maybe next year then!"
+    message: "We're sorry you can't make it. Maybe next year then!"
   };
 
   sendOne('email-basic', options, locals, function(err, info){
