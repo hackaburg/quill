@@ -383,7 +383,10 @@ UserController.declineById = function (id, callback){
     }, {
       new: true
     },
-    callback);
+    function (err, user) {
+      Mailer.sendDeclineEmail(user.email);
+      callback(err, user);
+    });
 };
 
 /**

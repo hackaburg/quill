@@ -232,4 +232,34 @@ controller.sendAdmitEmail = function(email, callback){
   });
 };
 
+/**
+ * Send a "sorry you couldn't make it" email
+ * @param  {[type]}   email    [description]
+ * @param  {Function} callback [description]
+ */
+controller.sendDeclineEmail = function(email, callback){
+
+  var options = {
+    to: email,
+    subject: "["+HACKATHON_NAME+"] - You declined your place"
+  };
+
+  var locals = {
+    title: "Bummer!",
+    body: "We're sorry you can't make it. Maybe next year then!"
+  };
+
+  sendOne('email-basic', options, locals, function(err, info){
+    if (err){
+      console.log(err);
+    }
+    if (info){
+      console.log(info.message);
+    }
+    if (callback){
+      callback(err, info);
+    }
+  });
+};
+
 module.exports = controller;
