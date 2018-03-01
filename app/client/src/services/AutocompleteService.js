@@ -14,7 +14,10 @@ angular.module('reg')
       },
       getUserDescriptions: function (){
         return $http.get(base + 'assets/descriptions.csv');
-      }
+      },
+      getNationalities: function (){
+        return $http.get(base + 'assets/nationalities.json');
+      },
     };
   }
   ]);

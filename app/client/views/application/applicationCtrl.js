@@ -13,6 +13,7 @@ angular.module('reg')
 
       // Set up the user
       $scope.user = currentUser.data;
+      $scope.travelFormId = $scope.user._id.substr(0, 5);
 
       var currentYear = new Date().getFullYear();
       $scope.graduationYears = [];
@@ -21,9 +22,28 @@ angular.module('reg')
       }
 
 
+      // <tracks>
+      var tracks = [
+        "Digital Journalism",
+        "Security",
+        "Smart Society",
+        "E-Health",
+        "Free Choice",
+      ];
+      
+      $scope.tracks = {};
+      
+      for (var i = 0; i < tracks.length; i++) {
+        var track = tracks[i];
+        
+        $scope.tracks[track] = $scope.user.profile.ideaTracks.indexOf(track) != -1;
+      }
+      // </tracks>
+      
+      
       // Populate the school dropdown
       populateSchools();
-      populateDescriptions();
+      populateNations();
       _setupForm();
 
       $scope.regIsClosed = Date.now() > Settings.data.timeClose;
@@ -68,31 +88,27 @@ angular.module('reg')
           });          
       }
 
-      function populateDescriptions(){
+      function populateNations() {
         AutocompleteService
-          .getUserDescriptions()
-          .then(function(res){ 
-            var descriptions = res.data
-                                  .trim()
-                                  .split('\n')
-                                  .map(function (description) {
-                                    return {
-                                      title: description.trim(),
-                                    };
-                                  });
-
-            $('#description.ui.search')
-              .search({
-                source: descriptions,
-                cache: true,
-                onSelect: function(result, response) {
-                  $scope.user.profile.description = result.title.trim();
-                }
-              });
+          .getNationalities()
+          .then(function(res){
+            $scope.nations = res.data;
           });
       }
 
       function _updateUser(e){
+        // <tracks>
+        $scope.user.profile.ideaTracks = [
+          "Digital Journalism",
+          "Security",
+          "Smart Society",
+          "E-Health",
+          "Free Choice",
+        ].filter(function (track) {
+          return $scope.tracks[track];
+        });
+        // </tracks>
+
         UserService
           .updateProfile(Session.getUserId(), $scope.user.profile)
           .success(function(data){
@@ -111,6 +127,30 @@ angular.module('reg')
       }
 
       function _setupForm(){
+        $.fn.form.settings.rules.professionSelected = function(value) {
+          var profession = $("input[name='profession']:checked").val();
+
+          return profession == "W" || profession == "S";
+        };
+
+        $.fn.form.settings.rules.schoolSelectedAndEmpty = function(value) {
+          var profession = $("input[name='profession']:checked").val();
+
+          return (profession == "S" && value.length > 0) || profession == "W";
+        };
+
+        $.fn.form.settings.rules.workSelectedAndEmpty = function(value) {
+          var profession = $("input[name='profession']:checked").val();
+
+          return (profession == "W" && value.length > 0) || profession == "S";
+        };
+
+        $.fn.form.settings.rules.travelReimbursementSelected = function(value) {
+          var travelReimbursement = $("input[name='travel-reimbursement']:checked").val();
+
+          return travelReimbursement == "Y" || travelReimbursement == "N";
+        };
+
         // Semantic-UI form validation
         $('.ui.form').form({
           inline: true,
@@ -124,21 +164,12 @@ angular.module('reg')
                 }
               ]
             },
-            school: {
-              identifier: 'school',
+            age: {
+              identifier: 'age',
               rules: [
                 {
-                  type: 'empty',
-                  prompt: 'Please enter your school name.'
-                }
-              ]
-            },
-            year: {
-              identifier: 'year',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please select your graduation year.'
+                  type: 'integer[1..150]',
+                  prompt: 'Please enter your age.'
                 }
               ]
             },
@@ -150,7 +181,126 @@ angular.module('reg')
                   prompt: 'Please select a gender.'
                 }
               ]
-            }
+            },
+            nationality: {
+              identifier: 'nationality',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select your nationality.'
+                }
+              ]
+            },
+
+            profession: {
+              identifier: 'profession',
+              rules: [
+                {
+                  type: 'professionSelected',
+                  prompt: 'Please select your profession.'
+                }
+              ]
+            },
+
+            school: {
+              identifier: 'school',
+              rules: [
+                {
+                  type: 'schoolSelectedAndEmpty',
+                  prompt: 'Please enter your school name.'
+                }
+              ]
+            },
+
+            subjectOfStudy: {
+              identifier: 'subject-of-study',
+              rules: [
+                {
+                  type: 'schoolSelectedAndEmpty',
+                  prompt: 'Please enter your subject of studies.'
+                }
+              ]
+            },
+
+            yearOfStudies: {
+              identifier: 'year-of-studies',
+              rules: [
+                {
+                  type: 'schoolSelectedAndEmpty',
+                  prompt: 'Please select your year of studies.'
+                }
+              ]
+            },
+
+            graduationYear: {
+              identifier: 'graduation-year',
+              rules: [
+                {
+                  type: 'schoolSelectedAndEmpty',
+                  prompt: 'Please select your graduation year.'
+                }
+              ]
+            },
+
+            workExperience: {
+              identifier: 'work-experience',
+              rules: [
+                {
+                  type: 'workSelectedAndEmpty',
+                  prompt: 'Please enter your work experience.'
+                }
+              ]
+            },
+
+            travelReimbursement: {
+              identifier: 'travel-reimbursement',
+              rules: [
+                {
+                  type: 'travelReimbursementSelected',
+                  prompt: 'Please select whether you need travel reimbursement.'
+                }
+              ]
+            },
+
+            description: {
+              identifier: 'description',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please describe yourself.'
+                }
+              ]
+            },
+
+            idea: {
+              identifier: 'idea',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please select whether you have an idea yet.'
+                }
+              ]
+            },
+
+            mlhTerms: {
+              identifier: 'mlh-terms',
+              rules: [
+                {
+                  type: 'checked',
+                  prompt: 'Please accept the terms of MLH.'
+                }
+              ]
+            },
+
+            mlhCoc: {
+              identifier: 'mlh-coc',
+              rules: [
+                {
+                  type: 'checked',
+                  prompt: 'Please accept the MLH code of conduct.'
+                }
+              ]
+            },
           }
         });
       }

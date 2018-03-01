@@ -26,9 +26,6 @@ angular.module('reg')
       var dietaryRestrictions = {
         'Vegetarian': false,
         'Vegan': false,
-        'Halal': false,
-        'Kosher': false,
-        'Nut Allergy': false
       };
 
       if (user.confirmation.dietaryRestrictions){
@@ -84,42 +81,6 @@ angular.module('reg')
                 }
               ]
             },
-            phone: {
-              identifier: 'phone',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter a phone number.'
-                }
-              ]
-            },
-            signatureLiability: {
-              identifier: 'signatureLiabilityWaiver',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please type your digital signature.'
-                }
-              ]
-            },
-            signaturePhotoRelease: {
-              identifier: 'signaturePhotoRelease',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please type your digital signature.'
-                }
-              ]
-            },
-            signatureCodeOfConduct: {
-              identifier: 'signatureCodeOfConduct',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please type your digital signature.'
-                }
-              ]
-            },
           }
         });
       }
@@ -127,6 +88,8 @@ angular.module('reg')
       $scope.submitForm = function(){
         if ($('.ui.form').form('is valid')){
           _updateUser();
+        } else {
+          sweetAlert("Uh oh!", "Please Fill The Required Fields", "error");
         }
       };
 
