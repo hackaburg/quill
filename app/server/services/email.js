@@ -100,7 +100,7 @@ controller.sendVerificationEmail = function(email, token, callback) {
   };
 
   var locals = {
-    title: "Hooray, you're signed up!",
+    title: "Hooray, our signup form worked!",
     message: "To make sure it's really you, we need you to verify your email address:",
     actionText: "VERIFY ME",
     actionUrl: ROOT_URL + '/verify/' + token
@@ -134,7 +134,7 @@ controller.sendPasswordResetEmail = function(email, token, callback) {
   };
 
   var locals = {
-    title: 'Password Reset Request',
+    title: 'Reset your password',
     message: 'Somebody (hopefully you!) has requested that your password be reset. If ' +
       'this was not you, feel free to disregard this email. This link will expire in one hour.',
     actionUrl: ROOT_URL + '/reset/' + token,
@@ -168,7 +168,7 @@ controller.sendPasswordChangedEmail = function(email, callback){
   };
 
   var locals = {
-    title: 'Password Updated',
+    title: 'Password updated',
     message: 'Somebody (hopefully you!) has successfully changed your password.',
   };
 
