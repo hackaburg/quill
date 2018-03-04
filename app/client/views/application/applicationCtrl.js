@@ -82,7 +82,7 @@ angular.module('reg')
                 source: content,
                 cache: true,     
                 onSelect: function(result, response) {
-                  $scope.user.profile.school = result.title.trim();
+                  $scope.user.profile.study.school = result.title.trim();
                 }
               })
           });          
