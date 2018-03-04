@@ -126,7 +126,15 @@
         <fieldset ng-disabled="regIsClosed">
           <div class="field" required>
             <label>Do you need travel reimbursement?</label>
-            <p>We'll give a limited amount of applicants a travel reimbursement up to 100&euro; (depending on your location).</p>
+            <p>If you're coming from outside the Oberpfalz, it's possible to apply for reimbursement to cover some of your travel expenses. Depending on where you come from, the reimbursement can be up to:</p>
+            <ul>
+              <li>Bavaria (outside of the Oberpfalz): 25€</li>
+              <li>Germany: 40€</li>
+              <li>Rest of Europe (SEPA area): 75€</li>
+            </ul>
+            <p>
+              <b>Important note:</b> We can only transfer money in the SEPA area! Thus, be ready to provide your travel receipts and bank address.
+            </p>
             <div class="ui stackable grid">
               <div class="two wide column">
                 <div class="ui radio checkbox">
@@ -141,16 +149,9 @@
                 </div>
               </div>
             </div>
-
-            <div ng-show="user.profile.travelReimbursement == 'Y'">
-              <br>
-              <p>As a reminder, our reimbursement policy is as follows:</p>
-              <ul>
-                <li> Up to $100 from within Germany </li>
-              </ul>
-              <p>To simplify the processing, please make sure to also include your reimbursement id <b>{{travelFormId}}</b> in the form.</p>
-              <br>
-            </div>
+            <br>
+            <p>Got more questions about our travel reimbursement process? Ping us your questions to <a href="mailto:applications@hackaburg.de">applications@hackaburg.de</a> and we'll look into it.</p>
+            <br>
           </div>
 
           <div class="field">
