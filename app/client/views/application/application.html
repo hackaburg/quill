@@ -156,12 +156,12 @@
 
           <div class="field">
             <label>Link to LinkedIn / XING profile</label>
-            <input type="text" placeholder="https://{{linkedin|xing}}/profile" ng-model="user.profile.linkedin">
+            <input type="text" placeholder="https://[linkedin|xing]/profile" ng-model="user.profile.linkedin">
           </div>
 
           <div class="field">
             <label>Link to GitHub profile or similar</label>
-            <input type="text" placeholder="https://{{github|bitbucket|gitlab|...}}/profile" ng-model="user.profile.github">
+            <input type="text" placeholder="https://[github|bitbucket|gitlab|.*]/profile" ng-model="user.profile.github">
           </div>
           
           <div class="field" required>
