@@ -288,16 +288,6 @@ angular.module('reg')
               ]
             },
 
-            mlhTerms: {
-              identifier: 'mlh-terms',
-              rules: [
-                {
-                  type: 'checked',
-                  prompt: 'Please accept the terms of MLH.'
-                }
-              ]
-            },
-
             mlhCoc: {
               identifier: 'mlh-coc',
               rules: [
