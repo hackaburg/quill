@@ -79,6 +79,8 @@ angular.module('reg')
           text: "An email should be sent to you shortly.",
           type: "success",
           confirmButtonColor: "#e76482"
+        }, function () {
+          $scope.setLoginState("login");
         });
       };
 
