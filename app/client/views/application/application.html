@@ -155,13 +155,13 @@
           </div>
 
           <div class="field">
-            <label>LinkedIn / XING profile</label>
-            <input type="text" placeholder="(optional)" ng-model="user.profile.linkedin">
+            <label>Link to LinkedIn / XING profile</label>
+            <input type="text" placeholder="https://{{linkedin|xing}}/profile" ng-model="user.profile.linkedin">
           </div>
 
           <div class="field">
-            <label>GitHub profile or similar</label>
-            <input type="text" placeholder="feel free to choose your preferred platform, e.g. GitHub, Bitbucket, GitLab, ..." ng-model="user.profile.github">
+            <label>Link to GitHub profile or similar</label>
+            <input type="text" placeholder="https://{{github|bitbucket|gitlab|...}}/profile" ng-model="user.profile.github">
           </div>
           
           <div class="field" required>
