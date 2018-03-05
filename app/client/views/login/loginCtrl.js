@@ -27,13 +27,41 @@ angular.module('reg')
         $scope.error = null;
       }
 
+      function isFormValid() {
+        if (!$scope.email) {
+          onError({
+            message: "Please provide your mail address",
+          });
+
+          return false;
+        }
+
+        if (!$scope.password) {
+          onError({
+            message: "Please provide a password",
+          });
+
+          return false;
+        }
+
+        return true;
+      }
+
       $scope.login = function(){
+        if (!isFormValid()) {
+          return;
+        }
+
         resetError();
         AuthService.loginWithPassword(
           $scope.email, $scope.password, onSuccess, onError);
       };
 
       $scope.register = function(){
+        if (!isFormValid()) {
+          return;
+        }
+
         resetError();
         AuthService.register(
           $scope.email, $scope.password, onSuccess, onError);
