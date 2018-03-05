@@ -145,6 +145,12 @@ angular.module('reg')
           return (profession == "W" && value.length > 0) || profession == "S";
         };
 
+        $.fn.form.settings.rules.workSelectedAndIntegerBetween1And100 = function(value) {
+          var profession = $("input[name='profession']:checked").val();
+
+          return (profession == "W" && value >= 1 && value <= 100) || profession == "S";
+        };
+
         $.fn.form.settings.rules.travelReimbursementSelected = function(value) {
           var travelReimbursement = $("input[name='travel-reimbursement']:checked").val();
 
@@ -246,7 +252,7 @@ angular.module('reg')
               identifier: 'work-experience',
               rules: [
                 {
-                  type: 'workSelectedAndEmpty',
+                  type: 'workSelectedAndIntegerBetween1And100',
                   prompt: 'Please enter your work experience.'
                 }
               ]
