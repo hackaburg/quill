@@ -219,6 +219,17 @@ var schema = new mongoose.Schema({
       },
     },
 
+    travelReimbursementType: {
+      type: String,
+      enum: {
+        values: [
+          "B",
+          "G",
+          "E",
+        ],
+      },
+    },
+
     github: {
       type: String,
     },

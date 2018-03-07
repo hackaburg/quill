@@ -157,8 +157,21 @@
             </div>
             <br>
             <p>Got more questions about our travel reimbursement process? Ping us your questions to <a href="mailto:applications@hackaburg.de">applications@hackaburg.de</a> and we'll look into it.</p>
-            <br>
           </div>
+
+          <div class="field" required ng-if="user.profile.travelReimbursement == 'Y'">
+            <label>Travel reimbursement type</label>
+            <p>Where will your journey to Hackaburg begin?</p>
+
+            <select name="travel-reimbursement-type" ng-model="user.profile.travelReimbursementType">
+              <option value="">-- Type --</option>
+              <option value="B">Bavaria</option>
+              <option value="G">Germany</option>
+              <option value="E">Europe</option>
+            </select>
+          </div>
+
+          <br>
 
           <div class="field">
             <label>Link to LinkedIn / XING profile</label>

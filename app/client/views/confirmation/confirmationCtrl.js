@@ -11,6 +11,7 @@ angular.module('reg')
       // Set up the user
       var user = currentUser.data;
       $scope.user = user;
+      $scope.askReimbursementType = !$scope.user.profile.travelReimbursementType;
 
       $scope.pastConfirmation = Date.now() > user.status.confirmBy;
 
@@ -40,7 +41,21 @@ angular.module('reg')
 
       // -------------------------------
 
-      function _updateUser(e){
+      function _updateUser(){
+        if ($scope.askReimbursementType) {
+          UserService.updateProfile(user._id, user.profile)
+            .success(function(data) {
+              _updateConfirmation();
+            })
+            .error(function (res) {
+              sweetAlert("Uh oh!", "Something went wrong.", "error");
+            });
+        } else {
+          _updateConfirmation();
+        }
+      }
+
+      function _updateConfirmation() {
         var confirmation = $scope.user.confirmation;
         // Get the dietary restrictions as an array
         var drs = [];

@@ -11,6 +11,18 @@
         <div class="divided title">More details about you</div>
 
         <fieldset ng-disabled="pastConfirmation">
+          <div class="field" required ng-if="user.profile.travelReimbursement == 'Y' && askReimbursementType">
+            <label>Travel reimbursement type</label>
+            <p>Where will your journey to Hackaburg begin?</p>
+
+            <select name="travel-reimbursement-type" ng-model="user.profile.travelReimbursementType">
+              <option value="">-- Type --</option>
+              <option value="B">Bavaria</option>
+              <option value="G">Germany</option>
+              <option value="E">Europe</option>
+            </select>
+          </div>
+
           <div class="field" required>
             <label>Dietary Restrictions</label>
 
