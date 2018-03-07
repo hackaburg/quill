@@ -59,7 +59,8 @@ angular.module('reg')
             var email = $scope.user.email.split('@')[1];
 
             if (schools[email]){
-              $scope.user.profile.school = schools[email].school;
+              $scope.user.profile.study = $scope.user.profile.study || {};
+              $scope.user.profile.study.school = schools[email].school;
               $scope.autoFilledSchool = true;
             }
           });
