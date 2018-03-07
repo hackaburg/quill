@@ -3,7 +3,7 @@ angular.module('reg')
         NAME: 'Hackaburg',
     })
     .constant('DASHBOARD', {
-        UNVERIFIED: 'You should have received an email asking you verify your email. Click the link in the email and you can start your application!',
+        UNVERIFIED: 'You should have received an email asking you verify your email. Click the link in the email and you can start your application! Please note: some users reported, their mailserver mistakenly identified the mail as spam, so also check your spam folder before reaching out to us.',
         INCOMPLETE_TITLE: 'You still need to complete your application!',
         INCOMPLETE: 'If you do not complete your application before the [APP_DEADLINE], you will not be considered for the admissions lottery!',
         SUBMITTED_TITLE: 'Your application has been submitted!',
