@@ -234,9 +234,6 @@ angular.module('reg')
       }
 
       $scope.rowClass = function(user) {
-        if (user.admin){
-          return 'admin';
-        }
         if (user.status.confirmed) {
           return 'positive';
         }
