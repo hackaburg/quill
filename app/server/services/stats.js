@@ -74,6 +74,13 @@ function calculateStats(){
     reimbursementTotal: 0,
     reimbursementMissing: 0,
 
+    reimbursementNeeds: {
+      "Bavaria": 0,
+      "Germany": 0,
+      "Europe": 0,
+      "not answered": 0,
+    },
+
     wantsHardware: 0,
 
     checkedIn: 0
@@ -121,6 +128,26 @@ function calculateStats(){
 
         // Count the number of people who need reimbursements
         newStats.reimbursementTotal += user.profile.travelReimbursement == "Y" ? 1 : 0;
+
+        if (user.profile.travelReimbursement == "Y") {
+          switch (user.profile.travelReimbursementType) {
+            case "B":
+              newStats.reimbursementNeeds.Bavaria++;
+              break;
+
+            case "G":
+              newStats.reimbursementNeeds.Germany++;
+              break;
+
+            case "E":
+              newStats.reimbursementNeeds.Europe++;
+              break;
+
+            default:
+              newStats.reimbursementNeeds["not answered"]++;
+              break;
+          }
+        }
 
         // Count the number of people who still need to be reimbursed
         newStats.reimbursementMissing += user.confirmation.needsReimbursement &&
@@ -220,6 +247,16 @@ function calculateStats(){
             });
           });
         newStats.selectedTracks = tracks;
+
+        var reimbursementNeeds = [];
+        _.keys(newStats.reimbursementNeeds)
+          .forEach(function (key){
+            reimbursementNeeds.push({
+              name: key,
+              count: newStats.reimbursementNeeds[key],
+            });
+          });
+        newStats.reimbursementNeeds = reimbursementNeeds;
 
         // Transform schools into an array of objects
         var schools = [];

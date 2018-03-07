@@ -124,6 +124,21 @@
         </div>
 
         <div class="item">
+          <i class="right arrow icon"></i>
+          <div class="content">
+            <strong>
+              Reimbursement Types:
+            </strong>
+            <ul>
+              <li
+                ng-repeat="reimbursement in stats.reimbursementNeeds | orderBy: '-count'">
+                {{reimbursement.name}} ({{reimbursement.count}})
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="item">
           <i class="frown icon"></i>
           <div class="content">
             <strong>
