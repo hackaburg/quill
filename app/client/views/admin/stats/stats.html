@@ -139,6 +139,18 @@
         </div>
 
         <div class="item">
+          <i class="dollar icon"></i>
+          <div class="content">
+            <strong>
+              Estimated reimbursement cost:
+            </strong>
+            {{estimatedReimbursementSum}}&euro;
+
+            <span ng-if="missingReimbursementTypes"> ({{missingReimbursementTypes}} didn't answered yet)</span>
+          </div>
+        </div>
+
+        <div class="item">
           <i class="frown icon"></i>
           <div class="content">
             <strong>
@@ -176,7 +188,7 @@
         </div>
 
         <div class="ui divider"></div>
-        
+
         <div class="item">
           <i class="compass icon"></i>
           <div class="content">
