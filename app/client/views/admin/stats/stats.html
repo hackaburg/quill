@@ -240,7 +240,7 @@
     </div>
   </div>
 
-<!--   <div
+  <div
     class="ui purple segment"
     ng-class="{'loading': loading}">
     <div class="ui header">
@@ -253,9 +253,11 @@
         <div class="header">
           {{team.name}}
         </div>
-        {{team.users.join(', ')}}
+        <ul>
+          <li ng-repeat="user in team.users">{{user}}</li>
+        </ul>
       </div>
     </div>
-  </div> -->
+  </div>
 
 </div>
