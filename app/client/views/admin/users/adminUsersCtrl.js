@@ -78,7 +78,7 @@ angular.module('reg')
       $scope.goToPage = function(page){
         $state.go('app.admin.users', {
           page: page,
-          size: $stateParams.size || 50
+          size: $stateParams.size || 9000
         });
       };
 
