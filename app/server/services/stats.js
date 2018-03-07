@@ -69,6 +69,8 @@ function calculateStats(){
     hostNeededOther: 0,
     hostNeededNone: 0,
 
+    selectedTracks: {},
+
     reimbursementTotal: 0,
     reimbursementMissing: 0,
 
@@ -183,6 +185,16 @@ function calculateStats(){
           });
         }
 
+        if (user.profile.ideaTracks) {
+          user.profile.ideaTracks.forEach(function (track) {
+            if (!newStats.selectedTracks.hasOwnProperty(track)) {
+              newStats.selectedTracks[track] = 0;
+            }
+
+            newStats.selectedTracks[track]++;
+          });
+        }
+
         // Count checked in
         newStats.checkedIn += user.status.checkedIn ? 1 : 0;
 
@@ -198,6 +210,16 @@ function calculateStats(){
             });
           });
         newStats.dietaryRestrictions = restrictions;
+
+        var tracks = [];
+        _.keys(newStats.selectedTracks)
+          .forEach(function (key){
+            tracks.push({
+              name: key,
+              count: newStats.selectedTracks[key],
+            });
+          });
+        newStats.selectedTracks = tracks;
 
         // Transform schools into an array of objects
         var schools = [];
