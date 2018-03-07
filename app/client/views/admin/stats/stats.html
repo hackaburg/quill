@@ -166,23 +166,29 @@
             <strong>
               Dietary Restrictions:
             </strong>
-            <span
-              ng-repeat="restriction in stats.dietaryRestrictions | orderBy: '-count'">
-              {{restriction.name}} ({{restriction.count}})
-            </span>
+            <ul>
+              <li
+                ng-repeat="restriction in stats.dietaryRestrictions | orderBy: '-count'">
+                {{restriction.name}} ({{restriction.count}})
+              </li>
+            </ul>
           </div>
         </div>
 
+        <div class="ui divider"></div>
+        
         <div class="item">
           <i class="compass icon"></i>
           <div class="content">
             <strong>
               Tracks:
             </strong>
-            <span
-              ng-repeat="track in stats.selectedTracks | orderBy: '-count'">
-              {{track.name}} ({{track.count}})
-            </span>
+            <ul>
+              <li
+                ng-repeat="track in stats.selectedTracks | orderBy: '-count'">
+                {{track.name}} ({{track.count}})
+              </li>
+            </ul>
           </div>
         </div>
 
