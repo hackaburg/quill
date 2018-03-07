@@ -153,6 +153,7 @@ UserController.createUser = function(email, password, callback) {
     var u = new User();
     u.email = email;
     u.password = User.generateHash(password);
+    u.timestamp = Date.now();
     u.save(function(err){
       if (err){
         // Duplicate key error codes
