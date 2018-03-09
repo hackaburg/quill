@@ -204,6 +204,21 @@
           </div>
         </div>
 
+        <div class="item">
+          <i class="user icon"></i>
+          <div class="content">
+            <strong>
+              Descriptions:
+            </strong>
+            <ul>
+              <li
+                ng-repeat="track in stats.selectedDescriptions | orderBy: '-count'">
+                {{track.name}} ({{track.count}})
+              </li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

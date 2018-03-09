@@ -70,6 +70,7 @@ function calculateStats(){
     hostNeededNone: 0,
 
     selectedTracks: {},
+    selectedDescriptions: {},
 
     reimbursementTotal: 0,
     reimbursementMissing: 0,
@@ -222,6 +223,16 @@ function calculateStats(){
           });
         }
 
+        if (user.profile.description) {
+          var description = user.profile.description;
+
+          if (!newStats.selectedDescriptions.hasOwnProperty(description)) {
+            newStats.selectedDescriptions[description] = 0;
+          }
+
+          newStats.selectedDescriptions[description]++;
+        }
+
         // Count checked in
         newStats.checkedIn += user.status.checkedIn ? 1 : 0;
 
@@ -247,6 +258,16 @@ function calculateStats(){
             });
           });
         newStats.selectedTracks = tracks;
+
+        var descriptions = [];
+        _.keys(newStats.selectedDescriptions)
+          .forEach(function (key){
+            descriptions.push({
+              name: key,
+              count: newStats.selectedDescriptions[key],
+            });
+          });
+        newStats.selectedDescriptions = descriptions;
 
         var reimbursementNeeds = [];
         _.keys(newStats.reimbursementNeeds)
