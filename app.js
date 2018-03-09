@@ -2,6 +2,7 @@
 require('dotenv').load({silent: true});
 
 var express         = require('express');
+var cors            = require("cors");
 
 // Middleware!
 var bodyParser      = require('body-parser');
@@ -20,6 +21,7 @@ var app             = express();
 // Connect to mongodb
 mongoose.connect(database);
 
+app.use(cors());
 app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({
