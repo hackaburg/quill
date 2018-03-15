@@ -11,7 +11,7 @@
         <div class="divided title">More details about you</div>
 
         <fieldset ng-disabled="pastConfirmation">
-          <div class="field" required ng-if="user.profile.travelReimbursement == 'Y' && askReimbursementType">
+          <div class="field" required ng-show="user.profile.travelReimbursement == 'Y' && askReimbursementType">
             <label>Travel reimbursement type</label>
             <p>Where will your journey to Hackaburg begin?</p>
 
