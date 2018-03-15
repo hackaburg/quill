@@ -411,6 +411,7 @@ schema.statics.validateProfile = function(profile, cb){
     ["Y", "N"].includes(profile.travelReimbursement) &&
     profile.description.length > 0 &&
     ["Y", "N", "S"].includes(profile.idea) &&
+    profile.legal.mlh.terms &&
     profile.legal.mlh.coc
   ));
 };
