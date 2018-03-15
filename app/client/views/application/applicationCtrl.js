@@ -158,6 +158,10 @@ angular.module('reg')
           return travelReimbursement == "Y" || travelReimbursement == "N";
         };
 
+        $.fn.form.settings.rules.travelReimbursementAndTypeProvided = function(value) {
+          return ($scope.user.profile.travelReimbursement == "Y" && $scope.user.profile.travelReimbursementType) || $scope.user.profile.travelReimbursement == "N";
+        };
+
         // Semantic-UI form validation
         $('.ui.form').form({
           inline: true,
@@ -265,6 +269,16 @@ angular.module('reg')
                 {
                   type: 'travelReimbursementSelected',
                   prompt: 'Please select whether you need travel reimbursement.'
+                }
+              ]
+            },
+
+            travelReimbursementType: {
+              identifier: 'travel-reimbursement-type',
+              rules: [
+                {
+                  type: 'travelReimbursementAndTypeProvided',
+                  prompt: 'Please provide which kind of reimbursement you will need.'
                 }
               ]
             },

@@ -159,7 +159,7 @@
             <p>Got more questions about our travel reimbursement process? Ping us your questions to <a href="mailto:applications@hackaburg.de">applications@hackaburg.de</a> and we'll look into it.</p>
           </div>
 
-          <div class="field" required ng-if="user.profile.travelReimbursement == 'Y'">
+          <div class="field" required ng-show="user.profile.travelReimbursement == 'Y'">
             <label>Travel reimbursement type</label>
             <p>Where will your journey to Hackaburg begin?</p>
 
