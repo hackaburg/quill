@@ -23,6 +23,17 @@
             </select>
           </div>
 
+          <div class="field" required ng-show="askMlhTerms">
+            <label>Major League Hacking Terms and Conditions</label>
+            <div class="ui checkbox">
+              <input type="checkbox" name="terms" ng-model="user.profile.legal.mlh.terms">
+              <label>I agree to the terms of both the <a href="https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions" target="_blank">MLH Contest Terms and Conditions</a> and the <a href="https://mlh.io/privacy" target="_blank">MLH Privacy Policy</a>. Please note that you may receive pre and post-event informational e-mails and occasional messages about hackathons from MLH as per the MLH Privacy Policy.</label>
+            </div>
+
+            <br>
+            <br>
+          </div>
+
           <div class="field" required>
             <label>Dietary Restrictions</label>
 

@@ -12,6 +12,7 @@ angular.module('reg')
       var user = currentUser.data;
       $scope.user = user;
       $scope.askReimbursementType = !$scope.user.profile.travelReimbursementType;
+      $scope.askMlhTerms = !$scope.user.profile.legal.mlh.terms;
 
       $scope.pastConfirmation = Date.now() > user.status.confirmBy;
 
@@ -42,7 +43,7 @@ angular.module('reg')
       // -------------------------------
 
       function _updateUser(){
-        if ($scope.askReimbursementType) {
+        if ($scope.askReimbursementType || $scope.askMlhTerms) {
           UserService.updateProfile(user._id, user.profile)
             .success(function(data) {
               _updateConfirmation();
@@ -87,6 +88,16 @@ angular.module('reg')
         // Semantic-UI form validation
         $('.ui.form').form({
           fields: {
+            mlhTerms: {
+              identifier: 'terms',
+              rules: [
+                {
+                  type: 'checked',
+                  prompt: 'Please accept the MLH terms.'
+                }
+              ]
+            },
+
             shirt: {
               identifier: 'shirt',
               rules: [
