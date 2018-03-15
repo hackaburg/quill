@@ -1,5 +1,9 @@
 
 {
+    "rwth-aachen.de": {
+        "school": "RWTH Aachen",
+        "state": "Nordrhein-Westfalen"
+    },
     "tum.de": {
         "school": "Technische Universität München",
         "state": "Bayern"
