@@ -298,6 +298,16 @@ angular.module('reg')
                 }
               ]
             },
+
+            mlhTerms: {
+              identifier: 'mlh-terms',
+              rules: [
+                {
+                  type: 'checked',
+                  prompt: 'Please accept the MLH terms.'
+                }
+              ]
+            },
           }
         });
       }
