@@ -150,47 +150,36 @@ UserController.createUser = function(email, password, callback) {
       return callback(err);
     }
 
-    User
-      .findOneByEmail(email)
-      .exec(function(err, user){
-
-        if (err) {
-          return callback(err);
-        }
-
-        if (user) {
+    var u = new User();
+    u.email = email;
+    u.password = User.generateHash(password);
+    u.timestamp = Date.now();
+    u.save(function(err){
+      if (err){
+        // Duplicate key error codes
+        if (err.name === 'MongoError' && (err.code === 11000 || err.code === 11001)) {
           return callback({
             message: 'An account for this email already exists.'
           });
-        } else {
-
-          // Make a new user
-          var u = new User();
-          u.email = email;
-          u.password = User.generateHash(password);
-          u.save(function(err){
-            if (err){
-              return callback(err);
-            } else {
-              // yay! success.
-              var token = u.generateAuthToken();
-
-              // Send over a verification email
-              var verificationToken = u.generateEmailVerificationToken();
-              Mailer.sendVerificationEmail(email, verificationToken);
-
-              return callback(
-                null,
-                {
-                  token: token,
-                  user: u
-                }
-              );
-            }
-
-          });
-
         }
+
+        return callback(err);
+      } else {
+        // yay! success.
+        var token = u.generateAuthToken();
+
+        // Send over a verification email
+        var verificationToken = u.generateEmailVerificationToken();
+        Mailer.sendVerificationEmail(email, verificationToken);
+
+        return callback(
+          null,
+          {
+            token: token,
+            user: u
+          }
+        );
+      }
 
     });
   });
@@ -395,7 +384,10 @@ UserController.declineById = function (id, callback){
     }, {
       new: true
     },
-    callback);
+    function (err, user) {
+      Mailer.sendDeclineEmail(user.email);
+      callback(err, user);
+    });
 };
 
 /**
@@ -406,7 +398,7 @@ UserController.declineById = function (id, callback){
 UserController.verifyByToken = function(token, callback){
   User.verifyEmailVerificationToken(token, function(err, email){
     User.findOneAndUpdate({
-      email: new RegExp('^' + email + '$', 'i')
+      email: email.toLowerCase()
     },{
       $set: {
         'verified': true
@@ -657,7 +649,10 @@ UserController.admitUser = function(id, user, callback){
       }, {
         new: true
       },
-      callback);
+      function (err, user) {
+        Mailer.sendAdmitEmail(user.email);
+        callback(err, user);
+      })
   });
 };
 

@@ -81,6 +81,14 @@ Edit the configuration file in `.env` for your setup, and then run the applicati
 gulp server
 ```
 
+### Deploying locally using Docker
+
+For testing purposes, it's sometimes easier to deploy Quill to a local docker setup. To do so, you can use the preconfigured [docker-compose.yml](docker-compose.yml), to get up and running even faster!
+
+- Quill is being proxied through NGINX on port 8080, in case you'll later want to use a custom url
+- [Maildev](https://github.com/djfarrelly/MailDev) is running on port 8081, so you can debug those emails
+- Also, [mongo-express](https://github.com/mongo-express/mongo-express) listens on port 8082, in case you need to directly modify some data
+
 # Customizing for your event
 
 ###### _If you're using Quill for your event, please add yourself to this [list][users]. It takes less than a minute, but knowing that our software is helping real events keeps us going ♥_ 
