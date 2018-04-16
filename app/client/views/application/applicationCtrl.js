@@ -46,7 +46,7 @@ angular.module('reg')
       populateNations();
       _setupForm();
 
-      $scope.regIsClosed = Date.now() > Settings.data.timeClose;
+      $scope.regIsClosed = Date.now() > Settings.data.timeClose || $scope.user.status.status.admitted;
 
       /**
        * TODO: JANK WARNING
