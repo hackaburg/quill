@@ -200,7 +200,7 @@ controller.sendAdmitEmail = function(email, callback){
 
   var locals = {
     title: "You're in!",
-    message: "We accepted your application! Please make sure to confirm your place using our registration dashboard.",
+    message: "We accepted your application! After receiving this email, you have 1 week to confirm that you are coming. After that, your place on Hackaburg 2018 expires.",
     actionUrl: ROOT_URL,
     actionText: "OPEN DASHBOARD"
   };
