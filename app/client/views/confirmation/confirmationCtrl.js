@@ -43,17 +43,7 @@ angular.module('reg')
       // -------------------------------
 
       function _updateUser(){
-        if ($scope.askReimbursementType || $scope.askMlhTerms) {
-          UserService.updateProfile(user._id, user.profile)
-            .success(function(data) {
-              _updateConfirmation();
-            })
-            .error(function (res) {
-              sweetAlert("Uh oh!", "Something went wrong.", "error");
-            });
-        } else {
-          _updateConfirmation();
-        }
+        _updateConfirmation();
       }
 
       function _updateConfirmation() {
