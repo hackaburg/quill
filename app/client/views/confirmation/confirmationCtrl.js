@@ -42,10 +42,6 @@ angular.module('reg')
 
       // -------------------------------
 
-      function _updateUser(){
-        _updateConfirmation();
-      }
-
       function _updateConfirmation() {
         var confirmation = $scope.user.confirmation;
         // Get the dietary restrictions as an array
@@ -117,7 +113,7 @@ angular.module('reg')
 
       $scope.submitForm = function(){
         if ($('.ui.form').form('is valid')){
-          _updateUser();
+          _updateConfirmation();
         } else {
           sweetAlert("Uh oh!", "Please Fill The Required Fields", "error");
         }

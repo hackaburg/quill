@@ -351,6 +351,7 @@ UserController.updateConfirmationById = function (id, confirmation, callback){
           'lastUpdated': Date.now(),
           'confirmation': confirmation,
           'status.confirmed': true,
+          'profile.legal.mlh.terms': true,
         }
       }, {
         new: true
