@@ -20,6 +20,7 @@
               <div class="field">
                 <label> Email</label>
                 <input type="email"
+                       ng-disabled="isBusy"
                        id='email'
                        placeholder="foo@bar.edu"
                        ng-model="email">
@@ -27,12 +28,14 @@
               <div class="field">
                 <label> Password</label>
                 <input type="password"
+                       ng-disabled="isBusy"
                        id='password'
                        placeholder="Password (at least 6 characters)"
                        ng-model="password" required>
               </div>
               <div class="field">
                 <button id="login-password"
+                        ng-disabled="isBusy"
                         type="submit"
                         class="fluid ui login button">
                         Login
@@ -47,6 +50,7 @@
               <button id="register"
                       type="submit"
                       class="fluid ui register button"
+                      ng-disabled="isBusy"
                       ng-click="register()">
                       Register
               </button>
@@ -60,12 +64,14 @@
               <div class="field">
                 <label> Email</label>
                 <input type="email"
+                       ng-disabled="isBusy"
                        id='email'
                        placeholder="foo@bar.edu"
                        ng-model="email">
               </div>
               <div class="field">
                 <button id="forgot-password"
+                        ng-disabled="isBusy"
                         type="submit"
                         class="fluid ui login button">
                         Send Reset Email
