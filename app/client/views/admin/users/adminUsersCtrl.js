@@ -229,7 +229,7 @@ angular.module('reg')
 
       function formatTime(time){
         if (time) {
-          return moment(time).format('MMMM Do YYYY, h:mm:ss a');
+          return moment(time).format('MMMM Do YYYY, HH:mm:ss');
         }
       }
 
