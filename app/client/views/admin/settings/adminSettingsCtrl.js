@@ -61,8 +61,7 @@ angular.module('reg')
         }
 
         // Hack for timezone
-        return moment(date).format('dddd, MMMM Do YYYY, h:mm') +
-          " " + date.toTimeString().split(' ')[2];
+        return moment(date).format('dddd, MMMM Do YYYY, HH:mm');
       };
 
       // Take a date and remove the seconds.
