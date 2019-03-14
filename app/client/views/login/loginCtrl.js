@@ -7,6 +7,7 @@ angular.module('reg')
     'Utils',
     'AuthService',
     function($scope, $http, $state, settings, Utils, AuthService){
+      $scope.isBusy = false;
 
       // Is registration open?
       var Settings = settings.data;
@@ -15,12 +16,22 @@ angular.module('reg')
       // Start state for login
       $scope.loginState = 'login';
 
+      function startWork() {
+        $scope.isBusy = true;
+      }
+
+      function finishWork() {
+        $scope.isBusy = false;
+      }
+
       function onSuccess() {
         $state.go('app.dashboard');
+        finishWork();
       }
 
       function onError(data){
         $scope.error = data.message;
+        finishWork();
       }
 
       function resetError(){
@@ -52,6 +63,7 @@ angular.module('reg')
           return;
         }
 
+        startWork();
         resetError();
         AuthService.loginWithPassword(
           $scope.email, $scope.password, onSuccess, onError);
@@ -62,6 +74,7 @@ angular.module('reg')
           return;
         }
 
+        startWork();
         resetError();
         AuthService.register(
           $scope.email, $scope.password, onSuccess, onError);
