@@ -87,21 +87,21 @@
             </div>
 
             <div class="field" required>
-              <label>Subject of studies</label>
+              <label>What is your major's subject?</label>
               <input type="text" placeholder="e.g. Computer Science, UX Engineering, Awesomeness" name="subject-of-study" ng-model="user.profile.study.subject">
             </div>
 
             <div class="field" required>
-              <label>Year of studies</label>
+              <label>What is your most current level of education (e.g. Bachelors or Masters)?</label>
               <select name="year-of-studies" ng-model="user.profile.study.yearOfStudies">
-                <option value="">-- Year of studies --</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
+                <option value="">-- Level of education --</option>
+                <option value="school">Still in school</option>
+                <option value="pre-study">I'll be a student next semester</option>
+                <option value="bachelor">Bachelors</option>
+                <option value="masters">Masters</option>
+                <option value="diploma">Diplom</option>
+                <option value="phd">PhD</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
