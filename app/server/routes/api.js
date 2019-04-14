@@ -72,7 +72,7 @@ module.exports = function(router) {
     return function(err, data){
       if (err){
         // SLACK ALERT!
-        if (process.env.NODE_ENV === 'production'){
+        if (process.env.NODE_ENV === 'production' && process.env.SLACK_HOOK){
           request
             .post(process.env.SLACK_HOOK,
               {
