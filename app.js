@@ -21,7 +21,7 @@ var app             = express();
 // Connect to mongodb
 mongoose.connect(database);
 
-app.use(cors());
+// app.use(cors());
 app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({
