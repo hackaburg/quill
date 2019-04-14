@@ -167,6 +167,7 @@ UserController.createUser = function(email, password, callback) {
       } else {
         // yay! success.
         var token = u.generateAuthToken();
+        delete u.password;
 
         // Send over a verification email
         var verificationToken = u.generateEmailVerificationToken();
@@ -398,6 +399,10 @@ UserController.declineById = function (id, callback){
  */
 UserController.verifyByToken = function(token, callback){
   User.verifyEmailVerificationToken(token, function(err, email){
+    if (err) {
+      return;
+    }
+
     User.findOneAndUpdate({
       email: email.toLowerCase()
     },{
