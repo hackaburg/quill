@@ -30,8 +30,14 @@ angular.module('reg')
       }
 
       $scope.joinTeam = function(){
+        var code = ($scope.code || "").trim();
+
+        if (!code) {
+          return;
+        }
+
         UserService
-          .joinOrCreateTeam($scope.code)
+          .joinOrCreateTeam(code)
           .success(function(user){
             $scope.error = null;
             $scope.user = user;
