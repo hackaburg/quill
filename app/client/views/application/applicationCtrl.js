@@ -24,12 +24,12 @@ angular.module('reg')
 
       // <tracks>
       var tracks = [
-        "Automotive",
-        "Finance",
-        "Hardware Project",
-        "Other",
-        "Privacy",
-        "Sports",
+        "Internet of Things",
+        "Sustainability",
+        "Productivity/Medical",
+        "Free Open Source Software",
+        "Space/Future",
+        "Free Track"
       ];
       
       $scope.tracks = {};
@@ -100,14 +100,7 @@ angular.module('reg')
 
       function _updateUser(e){
         // <tracks>
-        $scope.user.profile.ideaTracks = [
-          "Automotive",
-          "Finance",
-          "Hardware Project",
-          "Other",
-          "Privacy",
-          "Sports",
-        ].filter(function (track) {
+        $scope.user.profile.ideaTracks = tracks.filter(function (track) {
           return $scope.tracks[track];
         });
         // </tracks>
