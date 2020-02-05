@@ -71,14 +71,14 @@ mongod --dbpath db --bind_ip 127.0.0.1 --nohttpinterface
 
 Install the necessary dependencies:
 ```
-npm install
-bower install
-npm run config
+yarn install
+yarn bower install
+yarn config
 ```
 
 Edit the configuration file in `.env` for your setup, and then run the application:
 ```
-gulp server
+yarn start
 ```
 
 ### Deploying locally using Docker
