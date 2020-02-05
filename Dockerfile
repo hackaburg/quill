@@ -1,12 +1,19 @@
 FROM node:latest
 
-COPY . /app
 WORKDIR /app
 
-RUN echo '{ "allow_root": true }' > /root/.bowerrc
+COPY package.json /app
+COPY yarn.lock /app
 RUN yarn install
-RUN yarn run config
-EXPOSE 3000
 
+COPY . /app
+
+RUN echo '{ "allow_root": true }' > /root/.bowerrc
+RUN yarn bower install
+
+RUN yarn build
+
+EXPOSE 3000
 USER 1000:1000
-CMD [ "yarn", "start" ]
+
+CMD [ "node", "app.js" ]
