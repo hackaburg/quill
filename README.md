@@ -89,6 +89,18 @@ For testing purposes, it's sometimes easier to deploy Quill to a local docker se
 - [Maildev](https://github.com/djfarrelly/MailDev) is running on port 8081, so you can debug those emails
 - Also, [mongo-express](https://github.com/mongo-express/mongo-express) listens on port 8082, in case you need to directly modify some data
 
+### Troubleshooting Docker
+
+Initially, you might want to install the dependencies. If you're on a Mac or Windows machine, you won't be able to start the Quill container, as SASS and other dependencies are downloaded as platform-dependent binaries. To install the dependencies, use the [`run-in-node-container.sh`](run-in-node-container.sh) instead:
+
+```bash
+$ ./run-in-node-container.sh yarn install
+```
+
+Additionally, some services might take some time: Mongo might be slow during the first run, causing mongo-express to fail. Once Mongo is up and running, restart your services.
+
+When updating [`nginx.conf`](nginx.conf), you might want to `docker-compose exec proxy nginx -s reload` to reload the configuration.
+
 # Customizing for your event
 
 ###### _If you're using Quill for your event, please add yourself to this [list][users]. It takes less than a minute, but knowing that our software is helping real events keeps us going ♥_ 
